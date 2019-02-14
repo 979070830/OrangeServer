@@ -5,8 +5,11 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.ssl.SslContext;
+
+import com.google.protobuf.SystemMsgPB;
 
 public class WSServerChannelInitializer extends ChannelInitializer<SocketChannel>{
 
@@ -30,7 +33,8 @@ public class WSServerChannelInitializer extends ChannelInitializer<SocketChannel
 		p.addLast(new HttpServerCodec());
 		p.addLast(new HttpObjectAggregator(maxContentLength));
 		
-		//p.addLast(new DiscardServerHandler());
+		p.addLast(new ProtobufDecoder(SystemMsgPB.SystemMsg.getDefaultInstance()));
+		p.addLast(new ProtobufEncoder());
 		
 		p.addLast(new WSChannelInboundHandlerAdapter());
 		//p.addLast(new WebSocketServerProtocolHandler("/ws"));

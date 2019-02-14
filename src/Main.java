@@ -2,6 +2,7 @@ import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLException;
 
+import com.google.protobuf.TestMsgPB.TestMsg;
 import com.orange.server.WSServer;
 
 
@@ -18,7 +19,10 @@ public class Main {
         } else {
             port = 8009;
         }
-
+        System.out.println("java版本号：" + System.getProperty("java.version")); // java版本号
+        
+        Class dd = TestMsg.class;
+        System.out.println(dd);
         //telnet 192.168.1.125 8081
         //telnet localhost 8081
         WSServer server = new WSServer("localhost",8009,false);

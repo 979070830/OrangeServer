@@ -1,15 +1,10 @@
 package com.orange.server;
 
 
-import java.util.Date;
-
-import com.orange.server.ws.WebSocketHandshakerFactory;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.DefaultHttpResponse;
@@ -20,16 +15,30 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.HttpVersion;
+import io.netty.handler.codec.http.HttpHeaders.Names;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.AsciiString;
-import io.netty.util.ReferenceCountUtil;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Message;
+import com.google.protobuf.SystemMsgPB;
+import com.google.protobuf.SystemMsgPB.SystemMsgByteArray;
+import com.google.protobuf.TestMsgPB;
+import com.google.protobuf.TestMsgPB.TestMsg;
+import com.orange.server.ws.WebSocketHandshakerFactory;
 
 public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<Object> {
 
@@ -90,6 +99,9 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		{
 			String uri=request.uri();
 			System.out.println("ws url:"+uri);
+			
+			String version = request.headers().get(Names.SEC_WEBSOCKET_VERSION);
+			
 			WebSocketHandshakerFactory wsShakerFactory = new WebSocketHandshakerFactory("ws://" + request.headers().get(HttpHeaders.Names.HOST), null, false);
 			handshaker = wsShakerFactory.newHandshaker(request);
 			if (handshaker == null) {
@@ -144,18 +156,106 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		}
 
 	}
+	
+	private static Message parseFrom(Class<?> messageClass,SystemMsgPB.SystemMsgByteArray systemMsgByteArray) throws InvalidProtocolBufferException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	{
+		Method method = messageClass.getMethod("parser");
+		com.google.protobuf.Parser<Message> parser = (com.google.protobuf.Parser<Message>) method.invoke(null,null);
+		return parser.parseFrom(systemMsgByteArray.getBytes());
+	}
 
-	protected void processBinaryWebSocketRequest(ChannelHandlerContext ctx, BinaryWebSocketFrame frame) {
+	protected void processBinaryWebSocketRequest(ChannelHandlerContext ctx, BinaryWebSocketFrame frame) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		ByteBuf copy = frame.content().copy();
 
 		byte[] data = new byte[copy.capacity()];
 		copy.readBytes(data);
 
-		StringBuilder a = new StringBuilder();
-		for (int i = 0; i < data.length; i++) {
-			int v = data[i] & 0xFF;
-			a.append(Integer.toHexString(v));
+		try {
+			SystemMsgPB.SystemMsg resultVO = decode(data);
+			
+			SystemMsgPB.SystemMsgByteArray msgByteArray;
+			
+			List<Message> msgs = new ArrayList<Message>();
+		    Message message;
+			int len = resultVO.getMsgBytesCount();
+			for (int i = 0; i < len; i++) {
+				
+				msgByteArray = resultVO.getMsgBytes(i);
+				System.out.println(msgByteArray);
+				message = parseFrom(TestMsgPB.TestMsg.class,msgByteArray);
+				msgs.add(message);
+			}
+			
+			System.out.println("code:"+resultVO.getMsgCode());
+			if(resultVO.getIsMsgArray())
+			{
+				System.out.println(msgs.get(0));
+			}
+			else
+			{
+				System.out.println(msgs.get(0));
+			}
+				
+			
+				
+				
+//				System.out.println("code:"+resultVO.getMsgCode());
+//				System.out.println(msgs);
+//				
+//				TestMsgPB.TestMsg test = TestMsgPB.TestMsg.parseFrom(resultVO.getMsgBytes(0));
+//				System.out.println(resultVO);
+//				System.out.println(test);
+//				System.out.println("结束");
+			
+			
+		} catch (InvalidProtocolBufferException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+//		StringBuilder a = new StringBuilder();
+//		for (int i = 0; i < data.length; i++) {
+//			int v = data[i] & 0xFF;
+//			a.append(Integer.toHexString(v));
+//		}
+//		
+//		
+//		
+//		TestReq.TestVO vo1 = createVO();
+//		System.out.println("之前"+vo1.toString());
+//		try {
+//			
+//			TestReq.TestVO vo2 = decode(encode(vo1));
+//			System.out.println("之后"+vo2.toString());
+//			
+//			System.out.println("是否相等:"+vo1.equals(vo2));
+//			
+//		} catch (InvalidProtocolBufferException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+	}
+	
+	
+	
+	private static byte[] encode(SystemMsgPB.SystemMsg vo)
+	{
+		return vo.toByteArray();
+	}
+	
+	private static SystemMsgPB.SystemMsg decode(byte[] body) throws InvalidProtocolBufferException
+	{
+		return SystemMsgPB.SystemMsg.parseFrom(body);
+	}
+	
+	private SystemMsgPB.SystemMsg createVO()
+	{
+		SystemMsgPB.SystemMsg.Builder builder = SystemMsgPB.SystemMsg.newBuilder();
+		
+		SystemMsgPB.SystemMsg vo = builder.build();
+		return vo;
 	}
 
 	private void processTextWebSocketRequest(ChannelHandlerContext ctx, TextWebSocketFrame frame) 
@@ -172,6 +272,27 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 	}
 
 
+//	@Override
+//	public void channelRead(ChannelHandlerContext ctx, Object msg){
+//		try {
+//			super.channelRead(ctx, msg);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try
+//		{
+//			TestVO vo = (TestVO) msg;
+//			System.out.println(vo);
+//			
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println(e);
+//		}
+//
+//	}
+	
 //	@Override
 //	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 //

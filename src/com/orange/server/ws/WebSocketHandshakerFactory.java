@@ -11,6 +11,10 @@ import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker00;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker07;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker08;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker13;
 import io.netty.handler.codec.http.websocketx.WebSocketVersion;
 
 public class WebSocketHandshakerFactory {
@@ -41,25 +45,25 @@ public class WebSocketHandshakerFactory {
 				// Version 13 of the wire protocol - RFC 6455 (version 17 of the draft hybi specification).
 				// return new WebSocketServerHandshaker13(webSocketURL, subprotocols, allowExtensions,
 				// maxFramePayloadLength);
-				return new WebSocketHandshaker13(version, version, allowExtensions, maxFramePayloadLength);
+				return new WebSocketServerHandshaker13(version, version, allowExtensions, maxFramePayloadLength);
 			} else if (version.equals(WebSocketVersion.V08.toHttpHeaderValue())) {
 				// Version 8 of the wire protocol - version 10 of the draft hybi specification.
 				// return new WebSocketServerHandshaker08(webSocketURL, subprotocols, allowExtensions,
 				// maxFramePayloadLength);
-				return new WebSocketHandshaker08(version, version, allowExtensions, maxFramePayloadLength);
+				return new WebSocketServerHandshaker08(version, version, allowExtensions, maxFramePayloadLength);
 			} else if (version.equals(WebSocketVersion.V07.toHttpHeaderValue())) {
 				// Version 8 of the wire protocol - version 07 of the draft hybi specification.
 				// return new WebSocketServerHandshaker07(webSocketURL, subprotocols, allowExtensions,
 				// maxFramePayloadLength);
-				return new WebSocketHandshaker07(version, version, allowExtensions, maxFramePayloadLength);
+				return new WebSocketServerHandshaker07(version, version, allowExtensions, maxFramePayloadLength);
 			} else {
-                System.out.println("WebSocket handshaker not find");
+				System.out.println("WebSocket handshaker not find.");
 				return null;
 			}
 		} else {
 			// Assume version 00 where version header was not specified
 			// return new WebSocketServerHandshaker00(webSocketURL, subprotocols, maxFramePayloadLength);
-			return new WebSocketHandshaker00(webSocketURL, subprotocols, maxFramePayloadLength);
+			return new WebSocketServerHandshaker00(webSocketURL, subprotocols, maxFramePayloadLength);
 		}
 	}
 
