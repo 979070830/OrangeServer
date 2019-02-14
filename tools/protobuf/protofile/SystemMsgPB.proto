@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+package com.google.protobuf;
+//option java_package="com.google.protobuf";
+
+//option java_outer_classname="TestReqProto";
+//option java_multiple_files = true;
+//option objc_class_prefix = "GPB";
+
+
+message SystemMsg
+{
+	//optional bool isSysMsg = 4;//是否是系统消息 预留字段
+
+	//optional int32 zoneType = 5;//游戏区类型 0默认系统级区（服务器框架相关消息） 1-100000其他游戏区 一个游戏可以定义很多个区 
+
+	optional int32 msgCode = 1;//消息CODE 没有一个游戏自己都一个code对应Message的列表
+	
+	optional bool isMsgArray = 2;//bytes是否是MSG数组字节流
+	repeated SystemMsgByteArray msgBytes = 3;
+}
+
+message SystemMsgByteArray
+{
+	optional bytes bytes = 1;
+}

@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+package com.google.protobuf;
+//option java_package="com.google.protobuf";
+
+//option java_outer_classname="TestReqProto";
+//option java_multiple_files = true;
+//option objc_class_prefix = "GPB";
+
+
+message TestMsg {
+
+	optional string nick_name = 1;// 昵称
+
+	optional int64 seconds = 2;
+
+	optional int32 nanos = 3;
+	
+	repeated int32 array = 4;
+}
