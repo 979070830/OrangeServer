@@ -18,6 +18,7 @@ import com.orange.entities.managers.ExtensionManager;
 import com.orange.entities.managers.SessionManager;
 import com.orange.entities.managers.UserManager;
 import com.orange.entities.managers.ZoneManager;
+import com.orange.exceptions.ExceptionMessageComposer;
 import com.orange.exceptions.OSException;
 import com.orange.type.ServerState;
 import com.orange.util.StringHelper;
@@ -74,19 +75,17 @@ public class OrangeServerEngine {
 		//		this.bitSwarmEngine = BitSwarmEngine.getInstance();
 			    this.configurator = new Configurator();
 
-		this.log = LoggerFactory.getLogger(getClass());
-		this.eventManager = new EventManager();
-		this.zoneManager = new ZoneManager();
-		this.userManager = new UserManager();
+			    this.log = LoggerFactory.getLogger(getClass());
+
 
 		//	    this.networkEvtListener = new NetworkEvtListener(null);
 		//	    
-		//	    this.eventManager = new SFSEventManager();
-		//	    this.zoneManager = new SFSZoneManager();
-		//	    if (this.userManager == null) {
-		//	      this.userManager = new SFSUserManager();
-		//	    }
-		//	    this.extensionManager = new SFSExtensionManager();
+			    this.eventManager = new EventManager();
+			    this.zoneManager = new ZoneManager();
+			    if (this.userManager == null) {
+			      this.userManager = new UserManager();
+			    }
+			    this.extensionManager = new ExtensionManager();
 		//	    this.bannedUserManger = new SFSBannedUserManager();
 		//	    this.statsManager = new SFSStatsManager();
 		//
@@ -199,12 +198,11 @@ public class OrangeServerEngine {
 		    }
 		    catch (Exception e)
 		    {
-		     // ExceptionMessageComposer msg = new ExceptionMessageComposer(e);
-		     // msg.setDescription("Unexpected error during Server boot. The server cannot start.");
-		     // msg.addInfo("Solution: Please email us the content of this error message, including the stack trace to support[at]smartfoxserver.com");
+		    	ExceptionMessageComposer msg = new ExceptionMessageComposer(e);
+		    	msg.setDescription("Unexpected error during Server boot. The server cannot start.");
+		    	msg.addInfo("Solution: Please email us the content of this error message, including the stack trace to support[at]smartfoxserver.com");
 		      
-		      //this.log.error(e.getMessage());
-		      System.out.println(e.getMessage());
+		    	this.log.error(e.getMessage());
 		    }
 	}
 
@@ -251,6 +249,8 @@ public class OrangeServerEngine {
 
 		this.apiManager = new APIManager();
 		this.apiManager.init(null);
+		
+		this.extensionManager.init();
 		// 
 		//
 		//this.ghostUserHunter = new GhostUserHunter();
@@ -288,11 +288,11 @@ public class OrangeServerEngine {
 //	    this.bannedUserManger.init(null);
 //	    
 //
-//	    this.extensionManager.setExtensionMonitorActive(settings.startExtensionFileMonitor);
+	    this.extensionManager.setExtensionMonitorActive(settings.startExtensionFileMonitor);
 //	    
 //
-//	    ExceptionMessageComposer.globalPrintStackTrace = settings.useDebugMode;
-//	    ExceptionMessageComposer.useExtendedMessages = settings.useFriendlyExceptions;
+	    ExceptionMessageComposer.globalPrintStackTrace = settings.useDebugMode;
+	    ExceptionMessageComposer.useExtendedMessages = settings.useFriendlyExceptions;
 //	    
 //
 //	    this.invitationManager = new SFSInvitationManager();

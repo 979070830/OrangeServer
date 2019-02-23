@@ -143,9 +143,9 @@
     </profiles>
   </privilegeManager>
   <extension>
-    <name>xinqiwanExtension</name>
+    <name>luckBoxExtension</name>
     <type>JAVA</type>
-    <file>sfs2x.extensions.games.xinqiwan.MainExtension</file>
+    <file>com.luckybox.LuckBoxExtension</file>
     <propertiesFile></propertiesFile>
     <reloadMode>AUTO</reloadMode>
   </extension>
