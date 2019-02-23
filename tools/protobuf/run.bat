@@ -4,7 +4,9 @@
 set SOURCE_FOLDER=.\protofile
 
 ::Java编译器路径
+::set JAVA_COMPILER_PATH=tool\protoc2.5.0.exe
 set JAVA_COMPILER_PATH=tool\protoc-3.6.1-win32\bin\protoc.exe
+
 
 
 ::Java文件生成路径, 最后不要跟“\”符号
@@ -20,7 +22,7 @@ for /f "delims=" %%i in ('dir /b "%SOURCE_FOLDER%\*.proto"') do (
 
 ::生成 Java 代码
 echo %JAVA_COMPILER_PATH% --java_out=%JAVA_PATH% %SOURCE_FOLDER%\%%i
-%JAVA_COMPILER_PATH% --java_out=%JAVA_PATH% %SOURCE_FOLDER%\%%i 
+%JAVA_COMPILER_PATH% --java_out=%JAVA_PATH% %SOURCE_FOLDER%\%%i
  
 )
 

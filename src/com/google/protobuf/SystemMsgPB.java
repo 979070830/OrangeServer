@@ -75,6 +75,32 @@ public final class SystemMsgPB {
      */
     com.google.protobuf.SystemMsgPB.SystemMsgByteArrayOrBuilder getMsgBytesOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    boolean hasClassName();
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    java.lang.String getClassName();
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getClassNameBytes();
   }
   /**
    * <pre>
@@ -96,6 +122,7 @@ public final class SystemMsgPB {
       msgCode_ = 0;
       isMsgArray_ = false;
       msgBytes_ = java.util.Collections.emptyList();
+      className_ = "";
     }
 
     @java.lang.Override
@@ -139,6 +166,12 @@ public final class SystemMsgPB {
               }
               msgBytes_.add(
                   input.readMessage(com.google.protobuf.SystemMsgPB.SystemMsgByteArray.PARSER, extensionRegistry));
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              className_ = bs;
               break;
             }
             default: {
@@ -258,6 +291,60 @@ public final class SystemMsgPB {
       return msgBytes_.get(index);
     }
 
+    public static final int CLASSNAME_FIELD_NUMBER = 4;
+    private volatile java.lang.Object className_;
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    public boolean hasClassName() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    public java.lang.String getClassName() {
+      java.lang.Object ref = className_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          className_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *实体类类名
+     * </pre>
+     *
+     * <code>optional string className = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getClassNameBytes() {
+      java.lang.Object ref = className_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        className_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -281,6 +368,9 @@ public final class SystemMsgPB {
       for (int i = 0; i < msgBytes_.size(); i++) {
         output.writeMessage(3, msgBytes_.get(i));
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, className_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -301,6 +391,9 @@ public final class SystemMsgPB {
       for (int i = 0; i < msgBytes_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, msgBytes_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, className_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -330,6 +423,11 @@ public final class SystemMsgPB {
       }
       result = result && getMsgBytesList()
           .equals(other.getMsgBytesList());
+      result = result && (hasClassName() == other.hasClassName());
+      if (hasClassName()) {
+        result = result && getClassName()
+            .equals(other.getClassName());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -353,6 +451,10 @@ public final class SystemMsgPB {
       if (getMsgBytesCount() > 0) {
         hash = (37 * hash) + MSGBYTES_FIELD_NUMBER;
         hash = (53 * hash) + getMsgBytesList().hashCode();
+      }
+      if (hasClassName()) {
+        hash = (37 * hash) + CLASSNAME_FIELD_NUMBER;
+        hash = (53 * hash) + getClassName().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -502,6 +604,8 @@ public final class SystemMsgPB {
         } else {
           msgBytesBuilder_.clear();
         }
+        className_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -547,6 +651,10 @@ public final class SystemMsgPB {
         } else {
           result.msgBytes_ = msgBytesBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.className_ = className_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -627,6 +735,11 @@ public final class SystemMsgPB {
               msgBytesBuilder_.addAllMessages(other.msgBytes_);
             }
           }
+        }
+        if (other.hasClassName()) {
+          bitField0_ |= 0x00000008;
+          className_ = other.className_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -992,6 +1105,106 @@ public final class SystemMsgPB {
           msgBytes_ = null;
         }
         return msgBytesBuilder_;
+      }
+
+      private java.lang.Object className_ = "";
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public boolean hasClassName() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public java.lang.String getClassName() {
+        java.lang.Object ref = className_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            className_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getClassNameBytes() {
+        java.lang.Object ref = className_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          className_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public Builder setClassName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        className_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public Builder clearClassName() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        className_ = getDefaultInstance().getClassName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *实体类类名
+       * </pre>
+       *
+       * <code>optional string className = 4;</code>
+       */
+      public Builder setClassNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        className_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1574,10 +1787,11 @@ public final class SystemMsgPB {
   static {
     java.lang.String[] descriptorData = {
       "\n\033protofile/SystemMsgPB.proto\022\023com.googl" +
-      "e.protobuf\"k\n\tSystemMsg\022\017\n\007msgCode\030\001 \001(\005" +
+      "e.protobuf\"~\n\tSystemMsg\022\017\n\007msgCode\030\001 \001(\005" +
       "\022\022\n\nisMsgArray\030\002 \001(\010\0229\n\010msgBytes\030\003 \003(\0132\'" +
-      ".com.google.protobuf.SystemMsgByteArray\"" +
-      "#\n\022SystemMsgByteArray\022\r\n\005bytes\030\001 \001(\014"
+      ".com.google.protobuf.SystemMsgByteArray\022" +
+      "\021\n\tclassName\030\004 \001(\t\"#\n\022SystemMsgByteArray" +
+      "\022\r\n\005bytes\030\001 \001(\014"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1596,7 +1810,7 @@ public final class SystemMsgPB {
     internal_static_com_google_protobuf_SystemMsg_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_google_protobuf_SystemMsg_descriptor,
-        new java.lang.String[] { "MsgCode", "IsMsgArray", "MsgBytes", });
+        new java.lang.String[] { "MsgCode", "IsMsgArray", "MsgBytes", "ClassName", });
     internal_static_com_google_protobuf_SystemMsgByteArray_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_google_protobuf_SystemMsgByteArray_fieldAccessorTable = new

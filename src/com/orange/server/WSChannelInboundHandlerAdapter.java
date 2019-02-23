@@ -11,11 +11,11 @@ import io.netty.handler.codec.http.DefaultHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpHeaders.Names;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.HttpVersion;
-import io.netty.handler.codec.http.HttpHeaders.Names;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
@@ -31,25 +31,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.SystemMsgPB;
-import com.google.protobuf.SystemMsgPB.SystemMsgByteArray;
-import com.google.protobuf.TestMsgPB;
-import com.google.protobuf.TestMsgPB.TestMsg;
-import com.orange.server.ws.WebSocketHandshakerFactory;
+import com.orange.entities.User;
+import com.orange.entities.Zone;
 
 public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<Object> {
-
+	
 	private WebSocketServerHandshaker handshaker;
+	private OrangeServerEngine sfs;
 
+	public WSChannelInboundHandlerAdapter() {
+		super();
+		this.sfs = OrangeServerEngine.getInstance();
+	}
+	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
-		
+
 		//添加到全局
-		GlobalChannel.group.add(ctx.channel());
+		//GlobalChannel.group.add(ctx.channel());
+		
+		
+		
 		System.out.println("客户端与服务端连接开启：" + ctx.channel().remoteAddress().toString());
 	}
 
@@ -58,7 +64,14 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		super.channelInactive(ctx);
 		
 		//从全局中移除
-		GlobalChannel.group.remove(ctx.channel());
+		//GlobalChannel.group.remove(ctx.channel());
+		
+		
+		User user = this.sfs.getSessionManager().getUser(ctx);
+		user.getZone().getUserManager().removeUser(user);
+		//user.getZone().getUserManager().getOwnerRoom().removeUser(user);
+		//user.getZone().removeUser(user);
+		
 		System.out.println("客户端与服务端连接关闭：" + ctx.channel().remoteAddress().toString());
 	}
 
@@ -97,8 +110,8 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		}
 		else
 		{
-			String uri=request.uri();
-			System.out.println("ws url:"+uri);
+//			String uri=request.uri();
+//			System.out.println("ws url:"+uri);
 			
 			String version = request.headers().get(Names.SEC_WEBSOCKET_VERSION);
 			
@@ -109,6 +122,16 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 			} else {
 				handshaker.handshake(ctx.channel(), request);
 			}
+			
+			
+			//加入区
+			String zoneName = request.uri().substring(1);
+			Zone zone = OrangeServerEngine.getInstance().getZoneManager().getZoneByName(zoneName);
+			System.out.println(zoneName+zone);
+			
+			User user = new User(ctx);
+			zone.getUserManager().addUser(user);//加入主区
+			//zone.getUserManager().getOwnerRoom().addUser(user);//加入主房间
 		}
 	}
 
@@ -165,36 +188,53 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 	}
 
 	protected void processBinaryWebSocketRequest(ChannelHandlerContext ctx, BinaryWebSocketFrame frame) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
 		ByteBuf copy = frame.content().copy();
 
 		byte[] data = new byte[copy.capacity()];
 		copy.readBytes(data);
-
+ 
 		try {
 			SystemMsgPB.SystemMsg resultVO = decode(data);
 			
+			System.out.println("SystemMsg:"+resultVO);
+			System.out.println(SystemMsgPB.SystemMsg.class.getPackage().getName());
+			Class msgClass = AllMessageClassUtil.getClass(resultVO.getClassName());//TestMsgPB.TestMsg.class
+			
 			SystemMsgPB.SystemMsgByteArray msgByteArray;
+			Message message;
 			
-			List<Message> msgs = new ArrayList<Message>();
-		    Message message;
-			int len = resultVO.getMsgBytesCount();
-			for (int i = 0; i < len; i++) {
-				
-				msgByteArray = resultVO.getMsgBytes(i);
-				System.out.println(msgByteArray);
-				message = parseFrom(TestMsgPB.TestMsg.class,msgByteArray);
-				msgs.add(message);
-			}
-			
-			System.out.println("code:"+resultVO.getMsgCode());
 			if(resultVO.getIsMsgArray())
 			{
-				System.out.println(msgs.get(0));
+				List<Message> msgs = new ArrayList<Message>();
+			    
+				int len = resultVO.getMsgBytesCount();
+				for (int i = 0; i < len; i++) {
+					
+					msgByteArray = resultVO.getMsgBytes(i);
+					message = parseFrom(msgClass,msgByteArray);
+					msgs.add(message);
+				}
+				
+				System.out.println("接受到(SFSArray):"+msgs);
 			}
 			else
 			{
-				System.out.println(msgs.get(0));
+				msgByteArray = resultVO.getMsgBytes(0);
+				message = parseFrom(msgClass,msgByteArray);
+				
+				System.out.println("接受到(SFSObject):"+message);
 			}
+			
+			System.out.println("code:"+resultVO.getMsgCode());
+//			if(resultVO.getIsMsgArray())
+//			{
+//				System.out.println(msgs.get(0));
+//			}
+//			else
+//			{
+//				System.out.println(msgs.get(0));
+//			}
 				
 			
 				
