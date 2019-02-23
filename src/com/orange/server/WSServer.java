@@ -74,18 +74,18 @@ public class WSServer {
 			b.option(ChannelOption.SO_BACKLOG, 20 * 1024);
 			
 			//Socket参数，连接保活，默认值为False。启用该功能时，TCP会主动探测空闲连接的有效性。可以将此功能视为TCP的心跳机制，需要注意的是：默认的心跳间隔是7200s即2小时。Netty默认关闭该功能。
-			b.option(ChannelOption.SO_KEEPALIVE, true);
+			//b.option(ChannelOption.SO_KEEPALIVE, true);
 			
 			// 在TCP/IP协议中，无论发送多少数据，总是要在数据前面加上协议头，同时，对方接收到数据，也需要发送ACK表示确认。为了尽可能的利用网络带宽，TCP总是希望尽可能的发送足够大的数据。这里就涉及到一个名为Nagle的算法，该算法的目的就是为了尽可能发送大块数据，避免网络中充斥着许多小数据块。
 			// TCP_NODELAY就是用于启用或关于Nagle算法。如果要求高实时性，有数据发送时就马上发送，就将该选项设置为true关闭Nagle算法；如果要减少发送次数减少网络交互，就设置为false等累积一定大小后再发送。默认为false。
-			b.option(ChannelOption.TCP_NODELAY, true);
+			//b.option(ChannelOption.TCP_NODELAY, true);
 			
 			// 在调用close方法后，将阻塞n秒，让未完成发送的数据尽量发出
-			b.option(ChannelOption.SO_LINGER, 5);
+			//b.option(ChannelOption.SO_LINGER, 5);
 						
 			// 设置了ServerSocket类的SO_RCVBUF选项，就相当于设置了Socket对象的接收缓冲区大小，4KB
 			b.option(ChannelOption.SO_RCVBUF, 32 * 1024);// 这是接收缓冲大小
-			b.option(ChannelOption.SO_SNDBUF, 32 * 1024);//设置发送缓冲大小
+			//b.option(ChannelOption.SO_SNDBUF, 32 * 1024);//设置发送缓冲大小
 			
 			// 使用内存池的缓冲区重用机制
 			b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
