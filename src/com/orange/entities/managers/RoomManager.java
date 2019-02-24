@@ -17,6 +17,7 @@ import com.orange.entities.Room;
 import com.orange.entities.User;
 import com.orange.entities.Zone;
 import com.orange.entities.extensions.ExtensionLevel;
+import com.orange.entities.extensions.ExtensionType;
 import com.orange.exceptions.OSException;
 import com.orange.exceptions.OSRuntimeException;
 import com.orange.server.OrangeServerEngine;
@@ -179,7 +180,7 @@ public class RoomManager extends BaseCoreService implements ICoreService{
 	    if (params == null) {
 	      return;
 	    }
-//	    ExtensionType extType = ExtensionType.JAVA;
+	    ExtensionType extType = ExtensionType.JAVA;
 	    ExtensionLevel extLevel = ExtensionLevel.ROOM;
 	    
 	    String className = params.getClassName();
@@ -191,9 +192,9 @@ public class RoomManager extends BaseCoreService implements ICoreService{
 	    extSettings.file = className;
 	    extSettings.propertiesFile = params.getPropertiesFile();
 	    extSettings.reloadMode = "AUTO";
-	    //extSettings.type = extType.toString();
+	    extSettings.type = extType.toString();
 	    
-	    //this.sfs.getExtensionManager().createExtension(extSettings, extLevel, room.getZone(), room);
+	    this.sfs.getExtensionManager().createExtension(extSettings, extLevel, room.getZone(), room);
 	  }
 	  
 	  public Class<? extends DefaultPlayerIdGenerator> getDefaultRoomPlayerIdGenerator()

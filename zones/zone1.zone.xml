@@ -143,9 +143,9 @@
     </profiles>
   </privilegeManager>
   <extension>
-    <name>luckBoxExtension</name>
+    <name>luckyBoxExtension</name>
     <type>JAVA</type>
-    <file>com.luckybox.LuckBoxExtension</file>
+    <file>com.luckybox.LuckyBoxExtension</file>
     <propertiesFile></propertiesFile>
     <reloadMode>AUTO</reloadMode>
   </extension>

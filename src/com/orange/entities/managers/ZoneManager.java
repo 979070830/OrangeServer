@@ -17,7 +17,9 @@ import com.orange.core.ICoreService;
 import com.orange.entities.Room;
 import com.orange.entities.SFSRoomRemoveMode;
 import com.orange.entities.Zone;
+import com.orange.entities.extensions.ExtensionLevel;
 import com.orange.exceptions.OSException;
+import com.orange.exceptions.SFSException;
 import com.orange.server.OrangeServerEngine;
 
 public class ZoneManager extends BaseCoreService implements ICoreService {
@@ -255,19 +257,19 @@ public class ZoneManager extends BaseCoreService implements ICoreService {
 						+ roomSettings.name + " -> " + e.getMessage());
 			}
 		}
-//		if ((settings.extension != null) && (settings.extension.name != null)
-//				&& (settings.extension.name.length() > 0)) {
-//			try {
-//				this.sfs.getExtensionManager().createExtension(
-//						settings.extension, ExtensionLevel.ZONE, zone, null);
-//			} catch (SFSExtensionException err) {
-//				String extName = settings.extension.name == null ? "{Unknown}"
-//						: settings.extension.name;
-//
-//				throw new SFSException("Extension creation failure: " + extName
-//						+ " - " + err.getMessage());
-//			}
-//		}
+		if ((settings.extension != null) && (settings.extension.name != null)
+				&& (settings.extension.name.length() > 0)) {
+			try {
+				this.sfs.getExtensionManager().createExtension(
+						settings.extension, ExtensionLevel.ZONE, zone, null);
+			} catch (OSException err) {
+				String extName = settings.extension.name == null ? "{Unknown}"
+						: settings.extension.name;
+
+				throw new OSException("Extension creation failure: " + extName
+						+ " - " + err.getMessage());
+			}
+		}
 		zone.setActive(true);
 
 		return zone;
