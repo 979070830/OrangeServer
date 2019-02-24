@@ -1,0 +1,60 @@
+24 二月 2019 | 11:21:01,285 | INFO  | main | orange.server.OrangeServerEngine |     | Boot sequence starts...
+24 二月 2019 | 11:21:01,374 | INFO  | main | vfs.impl.DefaultFileReplicator |     | Using "C:\Users\quan\AppData\Local\Temp\vfs_cache" as temporary files store.
+24 二月 2019 | 11:21:01,501 | DEBUG | main | entities.managers.ExtensionManager |     | Extension Manager started.
+24 二月 2019 | 11:21:01,697 | DEBUG | main | entities.managers.ExtensionManager |     | Extension File Monitor started
+24 二月 2019 | 11:21:01,701 | INFO  | main | orange.config.Configurator |     | Loading: zones\zone1.zone.xml
+24 二月 2019 | 11:21:01,791 | INFO  | main | entities.managers.ZoneManager |     | 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ >> Zone: zone1 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+24 二月 2019 | 11:21:07,715 | DEBUG | main | internal.logging.InternalLoggerFactory |     | Using Log4J as the default logging framework
+24 二月 2019 | 11:21:07,721 | DEBUG | main | netty.channel.MultithreadEventLoopGroup |     | -Dio.netty.eventLoopThreads: 8
+24 二月 2019 | 11:21:07,777 | DEBUG | main | channel.nio.NioEventLoop |     | -Dio.netty.noKeySetOptimization: false
+24 二月 2019 | 11:21:07,777 | DEBUG | main | channel.nio.NioEventLoop |     | -Dio.netty.selectorAutoRebuildThreshold: 512
+24 二月 2019 | 11:21:07,805 | DEBUG | main | util.internal.PlatformDependent |     | Platform: Windows
+24 二月 2019 | 11:21:07,809 | DEBUG | main | util.internal.PlatformDependent0 |     | -Dio.netty.noUnsafe: false
+24 二月 2019 | 11:21:07,810 | DEBUG | main | util.internal.PlatformDependent0 |     | Java version: 7
+24 二月 2019 | 11:21:07,812 | DEBUG | main | util.internal.PlatformDependent0 |     | sun.misc.Unsafe.theUnsafe: available
+24 二月 2019 | 11:21:07,813 | DEBUG | main | util.internal.PlatformDependent0 |     | sun.misc.Unsafe.copyMemory: available
+24 二月 2019 | 11:21:07,814 | DEBUG | main | util.internal.PlatformDependent0 |     | java.nio.Buffer.address: available
+24 二月 2019 | 11:21:07,815 | DEBUG | main | util.internal.PlatformDependent0 |     | direct buffer constructor: available
+24 二月 2019 | 11:21:07,816 | DEBUG | main | util.internal.PlatformDependent0 |     | java.nio.Bits.unaligned: available, true
+24 二月 2019 | 11:21:07,817 | DEBUG | main | util.internal.PlatformDependent0 |     | jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+24 二月 2019 | 11:21:07,817 | DEBUG | main | util.internal.PlatformDependent0 |     | java.nio.DirectByteBuffer.<init>(long, int): available
+24 二月 2019 | 11:21:07,817 | DEBUG | main | util.internal.PlatformDependent |     | sun.misc.Unsafe: available
+24 二月 2019 | 11:21:07,821 | DEBUG | main | util.internal.PlatformDependent |     | -Dio.netty.tmpdir: C:\Users\quan\AppData\Local\Temp (java.io.tmpdir)
+24 二月 2019 | 11:21:07,821 | DEBUG | main | util.internal.PlatformDependent |     | -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24 二月 2019 | 11:21:07,823 | DEBUG | main | util.internal.PlatformDependent |     | -Dio.netty.noPreferDirect: false
+24 二月 2019 | 11:21:07,824 | DEBUG | main | util.internal.PlatformDependent |     | -Dio.netty.maxDirectMemory: 3690987520 bytes
+24 二月 2019 | 11:21:07,824 | DEBUG | main | util.internal.PlatformDependent |     | -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24 二月 2019 | 11:21:07,825 | DEBUG | main | util.internal.CleanerJava6 |     | java.nio.ByteBuffer.cleaner(): available
+24 二月 2019 | 11:21:07,840 | DEBUG | main | util.internal.PlatformDependent |     | org.jctools-core.MpscChunkedArrayQueue: available
+24 二月 2019 | 11:21:07,993 | DEBUG | main | netty.util.ResourceLeakDetector |     | -Dio.netty.leakDetection.level: simple
+24 二月 2019 | 11:21:07,994 | DEBUG | main | netty.util.ResourceLeakDetector |     | -Dio.netty.leakDetection.targetRecords: 4
+24 二月 2019 | 11:21:07,998 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.numHeapArenas: 8
+24 二月 2019 | 11:21:07,999 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.numDirectArenas: 8
+24 二月 2019 | 11:21:07,999 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.pageSize: 8192
+24 二月 2019 | 11:21:07,999 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.maxOrder: 11
+24 二月 2019 | 11:21:07,999 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.chunkSize: 16777216
+24 二月 2019 | 11:21:07,999 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.tinyCacheSize: 512
+24 二月 2019 | 11:21:08,000 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.smallCacheSize: 256
+24 二月 2019 | 11:21:08,000 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.normalCacheSize: 64
+24 二月 2019 | 11:21:08,000 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24 二月 2019 | 11:21:08,000 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.cacheTrimInterval: 8192
+24 二月 2019 | 11:21:08,000 | DEBUG | main | netty.buffer.PooledByteBufAllocator |     | -Dio.netty.allocator.useCacheForAllThreads: true
+24 二月 2019 | 11:21:08,006 | DEBUG | main | util.internal.InternalThreadLocalMap |     | -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24 二月 2019 | 11:21:08,006 | DEBUG | main | util.internal.InternalThreadLocalMap |     | -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24 二月 2019 | 11:21:08,049 | DEBUG | main | netty.channel.DefaultChannelId |     | -Dio.netty.processId: 631332 (auto-detected)
+24 二月 2019 | 11:21:08,053 | DEBUG | main | netty.util.NetUtil |     | -Djava.net.preferIPv4Stack: false
+24 二月 2019 | 11:21:08,053 | DEBUG | main | netty.util.NetUtil |     | -Djava.net.preferIPv6Addresses: false
+24 二月 2019 | 11:21:08,263 | DEBUG | main | netty.util.NetUtil |     | Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+24 二月 2019 | 11:21:08,264 | DEBUG | main | netty.util.NetUtil |     | Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+24 二月 2019 | 11:21:08,476 | DEBUG | main | netty.channel.DefaultChannelId |     | -Dio.netty.machineId: b8:97:5a:ff:fe:3d:a2:3c (auto-detected)
+24 二月 2019 | 11:21:08,511 | DEBUG | main | netty.buffer.ByteBufUtil |     | -Dio.netty.allocator.type: pooled
+24 二月 2019 | 11:21:08,511 | DEBUG | main | netty.buffer.ByteBufUtil |     | -Dio.netty.threadLocalDirectBufferSize: 0
+24 二月 2019 | 11:21:08,511 | DEBUG | main | netty.buffer.ByteBufUtil |     | -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24 二月 2019 | 11:21:08,560 | INFO  | nioEventLoopGroup-2-1 | handler.logging.LoggingHandler |     | [id: 0xffa135d7] REGISTERED
+24 二月 2019 | 11:21:08,562 | INFO  | nioEventLoopGroup-2-1 | handler.logging.LoggingHandler |     | [id: 0xffa135d7] BIND: 0.0.0.0/0.0.0.0:8009
+24 二月 2019 | 11:21:08,564 | INFO  | nioEventLoopGroup-2-1 | handler.logging.LoggingHandler |     | [id: 0xffa135d7, L:/0:0:0:0:0:0:0:0:8009] ACTIVE
