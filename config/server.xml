@@ -59,7 +59,7 @@
   <webSocket>
     <isActive>false</isActive>
     <bindAddress>localhost</bindAddress>
-    <tcpPort>8009</tcpPort>
+    <tcpPort>8008</tcpPort>
   </webSocket>
   <analytics>
     <isActive>false</isActive>
