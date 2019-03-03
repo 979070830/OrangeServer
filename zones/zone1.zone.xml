@@ -145,7 +145,7 @@
   <extension>
     <name>luckyBoxExtension</name>
     <type>JAVA</type>
-    <file>com.luckybox.LuckyBoxExtension</file>
+    <file>com.extensions.luckybox.LuckyBoxExtension</file>
     <propertiesFile></propertiesFile>
     <reloadMode>AUTO</reloadMode>
   </extension>
