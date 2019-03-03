@@ -1,7 +1,12 @@
 package com.orange.api.response;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,6 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.Message;
+import com.google.protobuf.SystemMsgPB;
+import com.google.protobuf.SystemMsgPB.SystemMsg;
+import com.google.protobuf.SystemMsgPB.SystemMsgByteArray;
+import com.google.protobuf.TestMsgPB.TestMsg;
+import com.google.protobuf.TestMsgPB.TestMsg.Builder;
 import com.orange.entities.Room;
 import com.orange.entities.SFSRoomSettings;
 import com.orange.entities.User;
@@ -27,8 +37,82 @@ public class SFSResponseApi {
 	    this.log = LoggerFactory.getLogger(getClass());
 	  }
 	  
-	  public void sendExtResponse(String cmdName, Message params, List<ChannelHandlerContext> recipients, Room room, boolean sendUDP)
+	  public void sendText(String cmdName, String text, List<ChannelHandlerContext> recipients, Room room, boolean sendUDP)
 	  {
+		  for (ChannelHandlerContext ctx : recipients) {
+			  ctx.channel().writeAndFlush(new TextWebSocketFrame(text));
+		  }
+		  System.out.print("发送sendText成功");
+	  }
+	  
+	  public void sendExtResponse(String cmdName, List<Message> messages, List<ChannelHandlerContext> recipients, Room room, boolean sendUDP)
+	  {
+		  SystemMsgPB.SystemMsg.Builder builder = SystemMsgPB.SystemMsg.newBuilder();
+		  builder.setMsgCode(524573);
+		  builder.setIsMsgArray(true);
+		  
+		  List<SystemMsgByteArray> systemMsgByteArrays = new ArrayList();
+		  String className = null;
+		  for (Message message : messages) {
+			  if(message != null)
+			  {
+				  if(className == null)
+				  {
+					  className = message.getClass().getSimpleName();
+					  builder.setClassName(className);
+				  } 
+				  
+				  SystemMsgByteArray.Builder systemMsgByteArrayBuilder = SystemMsgByteArray.newBuilder();
+				  systemMsgByteArrayBuilder.setBytes(message.toByteString());
+				  
+				  systemMsgByteArrays.add(systemMsgByteArrayBuilder.build());
+			  }
+			  else
+			  {
+				  systemMsgByteArrays.add(null);
+			  }
+		  }
+		  
+		  builder.addAllMsgBytes(systemMsgByteArrays);
+		  
+		  
+		  SystemMsgPB.SystemMsg systemMsg = builder.build();
+		  
+		  byte[] bytes = systemMsg.toByteArray();
+		  ByteBuf byteBuf = Unpooled.buffer(bytes.length);
+		  byteBuf.writeBytes(bytes);
+		  
+		  for (ChannelHandlerContext ctx : recipients) {
+			  ctx.channel().writeAndFlush(new BinaryWebSocketFrame(byteBuf));
+		  }
+	  }
+	  
+	  public void sendExtResponse(String cmdName, Message message, List<ChannelHandlerContext> recipients, Room room, boolean sendUDP)
+	  {    
+		  SystemMsgPB.SystemMsg.Builder builder = SystemMsgPB.SystemMsg.newBuilder();
+		  builder.setMsgCode(524573);
+		  builder.setIsMsgArray(false);
+		  
+		  if(message != null)
+		  {
+			  SystemMsgByteArray.Builder systemMsgByteArrayBuilder = SystemMsgByteArray.newBuilder();
+			  systemMsgByteArrayBuilder.setBytes(message.toByteString());
+			  
+			  builder.addMsgBytes(systemMsgByteArrayBuilder.build());
+			  
+			  builder.setClassName(message.getClass().getSimpleName());
+		  }
+		  
+		  SystemMsgPB.SystemMsg systemMsg = builder.build();
+		  
+		  byte[] bytes = systemMsg.toByteArray();
+		  ByteBuf byteBuf = Unpooled.buffer(bytes.length);
+		  byteBuf.writeBytes(bytes);
+		  
+		  for (ChannelHandlerContext ctx : recipients) {
+			  ctx.channel().writeAndFlush(new BinaryWebSocketFrame(byteBuf));
+		  }
+		  
 //	    ISFSObject resObj = SFSObject.newInstance();
 //	    resObj.putUtfString("c", cmdName);
 //	    resObj.putSFSObject("p", params != null ? params : new SFSObject());

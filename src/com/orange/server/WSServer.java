@@ -111,7 +111,7 @@ public class WSServer {
 		}
 		catch(Exception e)
 		{
-			System.out.println("WSServer Start Error!");
+			System.out.println("WSServer Start Error!"+e);
 			bool = false;
 		}
 		return bool;

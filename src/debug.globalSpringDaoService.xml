@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- 该配置由GenDaoServiceTool类自动生成 -->
+	<!-- 请不要在这里修改,重新生成会被覆盖,请到springServiceEx.xml文件配置你的扩展业务 -->
+	<!-- 最好也不要直接使用,全部都要使用其业务扩展子类来处理,如IXxxxServiceEx,可以由ServiceEx类获得,如serviceEx.getRoleServiceEx();-->
+
+	<!-- 数据库持久层配置 方法2 -->
+	<!--
+	<bean id="testDao" class="sfs2x.extensions.games.xinqiwan.dao.imple.TestDaoImple">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	-->
+
+	<bean id="daoGlobal" abstract="true">
+		<property name="dataSource" ref="dataSourceGlobal" />
+	</bean>
+
+	<bean id="channelrechargelogDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.ChannelrechargelogDaoImple"> </bean> 
+	<bean id="channelrechargelogService" class="sfs2x.extensions.games.xinqiwan.service.imple.ChannelrechargelogServiceImple">
+		<property name="channelrechargelogDao" ref="channelrechargelogDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="channeluserbindDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.ChanneluserbindDaoImple"> </bean> 
+	<bean id="channeluserbindService" class="sfs2x.extensions.games.xinqiwan.service.imple.ChanneluserbindServiceImple">
+		<property name="channeluserbindDao" ref="channeluserbindDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="diamondcardDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.DiamondcardDaoImple"> </bean> 
+	<bean id="diamondcardService" class="sfs2x.extensions.games.xinqiwan.service.imple.DiamondcardServiceImple">
+		<property name="diamondcardDao" ref="diamondcardDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="markdiamondcardlogDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.MarkdiamondcardlogDaoImple"> </bean> 
+	<bean id="markdiamondcardlogService" class="sfs2x.extensions.games.xinqiwan.service.imple.MarkdiamondcardlogServiceImple">
+		<property name="markdiamondcardlogDao" ref="markdiamondcardlogDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="serverlistDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.ServerlistDaoImple"> </bean> 
+	<bean id="serverlistService" class="sfs2x.extensions.games.xinqiwan.service.imple.ServerlistServiceImple">
+		<property name="serverlistDao" ref="serverlistDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="serverversionDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.ServerversionDaoImple"> </bean> 
+	<bean id="serverversionService" class="sfs2x.extensions.games.xinqiwan.service.imple.ServerversionServiceImple">
+		<property name="serverversionDao" ref="serverversionDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="transactionlogDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.TransactionlogDaoImple"> </bean> 
+	<bean id="transactionlogService" class="sfs2x.extensions.games.xinqiwan.service.imple.TransactionlogServiceImple">
+		<property name="transactionlogDao" ref="transactionlogDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="userhasdiamondDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.UserhasdiamondDaoImple"> </bean> 
+	<bean id="userhasdiamondService" class="sfs2x.extensions.games.xinqiwan.service.imple.UserhasdiamondServiceImple">
+		<property name="userhasdiamondDao" ref="userhasdiamondDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="userhasserverlistDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.UserhasserverlistDaoImple"> </bean> 
+	<bean id="userhasserverlistService" class="sfs2x.extensions.games.xinqiwan.service.imple.UserhasserverlistServiceImple">
+		<property name="userhasserverlistDao" ref="userhasserverlistDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="userinfoDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.UserinfoDaoImple"> </bean> 
+	<bean id="userinfoService" class="sfs2x.extensions.games.xinqiwan.service.imple.UserinfoServiceImple">
+		<property name="userinfoDao" ref="userinfoDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+	<bean id="userrechargeconsumelogDao" parent="daoGlobal" class="sfs2x.extensions.games.xinqiwan.dao.imple.UserrechargeconsumelogDaoImple"> </bean> 
+	<bean id="userrechargeconsumelogService" class="sfs2x.extensions.games.xinqiwan.service.imple.UserrechargeconsumelogServiceImple">
+		<property name="userrechargeconsumelogDao" ref="userrechargeconsumelogDao"/>
+		<property name="txManager" ref="txManagerGlobal"/>
+	</bean>
+
+</beans>

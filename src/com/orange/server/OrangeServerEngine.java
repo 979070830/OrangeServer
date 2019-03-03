@@ -1,5 +1,8 @@
 package com.orange.server;
 
+import java.io.Console;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLException;
@@ -8,7 +11,6 @@ import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.orange.api.SFSApi;
 import com.orange.config.Configurator;
 import com.orange.config.ServerSettings;
 import com.orange.core.OSShutdownHook;
@@ -16,6 +18,7 @@ import com.orange.entities.managers.APIManager;
 import com.orange.entities.managers.EventManager;
 import com.orange.entities.managers.ExtensionManager;
 import com.orange.entities.managers.SessionManager;
+import com.orange.entities.managers.SpringManager;
 import com.orange.entities.managers.UserManager;
 import com.orange.entities.managers.ZoneManager;
 import com.orange.exceptions.ExceptionMessageComposer;
@@ -39,6 +42,7 @@ public class OrangeServerEngine {
 	private SessionManager sessionManager;
 	private APIManager apiManager;
 	private ExtensionManager extensionManager;
+	private SpringManager springManager;
 
 	public EventManager getEventManager() {
 		return eventManager;
@@ -63,11 +67,25 @@ public class OrangeServerEngine {
 	public ExtensionManager getExtensionManager() {
 		return extensionManager;
 	}
+	
+	public SpringManager getSpringManager() {
+		return springManager;
+	}
 
 	private final Logger log;
 
 	private boolean clustered = false;
 	private boolean useConsole = false;
+	
+	
+	///////////////////////////////////////////
+	private boolean debug;//程序是否是以debug模式运行的
+	private boolean isTest;//是否测试模式（或者是开发模式）
+	private boolean isDebugDeploy = false;//是否采取部署配置进行debug
+	
+	///////////////////////////////////////////
+	
+	
 
 	public OrangeServerEngine() {
 		super();
@@ -80,6 +98,7 @@ public class OrangeServerEngine {
 
 		//	    this.networkEvtListener = new NetworkEvtListener(null);
 		//	    
+			    this.springManager = new SpringManager();
 			    this.eventManager = new EventManager();
 			    this.zoneManager = new ZoneManager();
 			    if (this.userManager == null) {
@@ -90,14 +109,36 @@ public class OrangeServerEngine {
 		//	    this.statsManager = new SFSStatsManager();
 		//
 			    this.taskScheduler = new TaskScheduler(1);
+			    
+			    
+			    String ipAddress="";
+				try {
+					ipAddress = InetAddress.getLocalHost().toString();
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("ipAddress:"+ipAddress);
+			    isDebugDeploy =  (ipAddress.indexOf("192.168.") == -1 && ipAddress.indexOf("127.0.0.1") == -1 && ipAddress.indexOf("localhost") == -1) ? true : false;
+				System.out.println("isDebugDeploy:"+isDebugDeploy);
+				debug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("jdwp") >= 0;
+				
+				if((isTest = debug && !isDebugDeploy))
+				{
+					System.out.println("当前采取Debug配置进行初始化!");
+				}
+				else
+				{
+					System.out.println("当前采取部署配置进行初始化!");
+				}
 	}
 
-	private static OrangeServerEngine _instance = new OrangeServerEngine();
+	private static OrangeServerEngine _instance;// = new OrangeServerEngine();
 	public static OrangeServerEngine getInstance()
 	{
-//		if (_instance == null) {
-//			_instance = new OrangeServerEngine();
-//		}
+		if (_instance == null) {
+			_instance = new OrangeServerEngine();
+		}
 		return _instance;
 	}
 	
@@ -147,6 +188,7 @@ public class OrangeServerEngine {
 			      {
 			    	  this.zoneManager.init(null);
 			        this.zoneManager.initializeZones();
+			        initializedZones();
 			      }
 			      catch (OSException err)
 			      {
@@ -299,6 +341,12 @@ public class OrangeServerEngine {
 //	    ((IService)this.invitationManager).init(null);
 	  }
 	  
+	  private void initializedZones()
+	  {
+		  System.out.println("初始化所有Zone完成");
+		  this.springManager.initContext();
+	  }
+	  
 	  private void startWSServer(ServerSettings settings)
 	  {
 		  	//telnet 192.168.1.125 8081
@@ -307,7 +355,10 @@ public class OrangeServerEngine {
 		  	WSServer server = new WSServer(settings.webSocket.bindAddress,settings.webSocket.tcpPort,settings.webSocket.isSSL);
 			try {
 				server.start();
-			} catch (SSLException | CertificateException e) {
+			} catch (SSLException e) {
+				e.printStackTrace();
+			}
+			catch (CertificateException e) {
 				e.printStackTrace();
 			}
 			

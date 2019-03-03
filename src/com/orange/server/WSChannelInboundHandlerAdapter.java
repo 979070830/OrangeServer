@@ -13,6 +13,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders.Names;
 import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.HttpVersion;
@@ -29,11 +30,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.SystemMsgPB;
+import com.orange.core.ISFSEventParam;
+import com.orange.core.SFSEvent;
+import com.orange.core.SFSEventParam;
+import com.orange.core.SFSEventType;
 import com.orange.entities.User;
 import com.orange.entities.Zone;
 
@@ -68,7 +75,7 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		
 		
 		User user = this.sfs.getSessionManager().getUser(ctx);
-		user.getZone().getUserManager().removeUser(user);
+		if(user != null) user.getZone().getUserManager().removeUser(user);
 		//user.getZone().getUserManager().getOwnerRoom().removeUser(user);
 		//user.getZone().removeUser(user);
 		
@@ -110,8 +117,8 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 		}
 		else
 		{
-//			String uri=request.uri();
-//			System.out.println("ws url:"+uri);
+			String uri=request.uri();
+			System.out.println("ws url:"+uri);
 			
 			String version = request.headers().get(Names.SEC_WEBSOCKET_VERSION);
 			
@@ -132,6 +139,15 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 			User user = new User(ctx);
 			zone.getUserManager().addUser(user);//加入主区
 			//zone.getUserManager().getOwnerRoom().addUser(user);//加入主房间
+			
+		      Map<ISFSEventParam, Object> evtParams = new HashMap();
+		      evtParams.put(SFSEventParam.ZONE, zone);
+		      evtParams.put(SFSEventParam.USER, user);
+		      
+		      this.sfs.getEventManager().dispatchEvent(new SFSEvent(SFSEventType.USER_JOIN_ZONE, evtParams));
+				
+				
+
 		}
 	}
 
@@ -351,20 +367,42 @@ public class WSChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<
 //		//            ReferenceCountUtil.release(msg);
 //		//        }
 //
-//		ByteBuf in = (ByteBuf) msg;
-//		String rect = in.toString(io.netty.util.CharsetUtil.US_ASCII);
-//		System.out.println("接收:"+rect);
+////		ByteBuf in = (ByteBuf) msg;
+////		String rect = in.toString(io.netty.util.CharsetUtil.US_ASCII);
+////		System.out.println("接收:"+rect);
+//		
+//		String sss = msg.getClass().getName();
+//		System.out.println("sss="+sss);
+//		if(sss == "io.netty.handler.codec.http.HttpObjectAggregator$AggregatedFullHttpRequest")
+//		{
+//			try {
+//				super.channelRead(ctx, msg);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		else
+//		{
+////			ctx.flush();
+////	    	String send = "返回:";//+rect;
+////	    	//final ByteBuf time = ctx.alloc().buffer(4); // (2)
+////	    	final ByteBuf time = Unpooled.buffer(4);
+////	    	//time.writeInt(11111);
+////	        //time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+////	        time.writeChar("s".toCharArray()[0]);
+////	        time.writeChar("s".toCharArray()[0]);
+////	        time.writeChar("s".toCharArray()[0]);
+////	        time.writeChar("s".toCharArray()[0]);
+////	    	//ctx.write(msg);
+////	        //ctx.flush();
+////	    	ctx.writeAndFlush(time);
+//		}
+//	}
 //
-//		//    	String send = "返回:"+rect;
-//		//    	final ByteBuf time = ctx.alloc().buffer(4); // (2)
-//		//        time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
-//		//        time.writeChar("s".toCharArray()[0]);
-//		//        time.writeChar("s".toCharArray()[0]);
-//		//        time.writeChar("s".toCharArray()[0]);
-//		//        time.writeChar("s".toCharArray()[0]);
-//		//    	//ctx.write(msg);
-//		//        //ctx.flush();
-//		//    	ctx.writeAndFlush(time);
+//	@Override
+//	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+//		super.channelReadComplete(ctx);
 //	}
 
 	@Override

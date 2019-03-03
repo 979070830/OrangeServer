@@ -54,7 +54,11 @@ public class AllMessageClassUtil {
             
             System.out.println("包下所有Message实体类："+classMap);
 			
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException  e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

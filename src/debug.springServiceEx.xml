@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- 可扩展配置,第一次由GenDaoServiceTool类生成,修改不会被覆盖 -->
+	<!-- 扩展业务配置请在这里配置 -->
+
+	 <bean id="activityswitchServiceEx" parent="activityswitchService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ActivityswitchServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="buildingServiceEx" parent="buildingService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.BuildingServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="buildinghasfurnitureServiceEx" parent="buildinghasfurnitureService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.BuildinghasfurnitureServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="commonconfigServiceEx" parent="commonconfigService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.CommonconfigServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="connectinfoServiceEx" parent="connectinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ConnectinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="createroleServiceEx" parent="createroleService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.CreateroleServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="ddoorstoreinfoServiceEx" parent="ddoorstoreinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.DdoorstoreinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="disconnectServiceEx" parent="disconnectService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.DisconnectServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="downapplogServiceEx" parent="downapplogService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.DownapplogServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="equipaddinfoServiceEx" parent="equipaddinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.EquipaddinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="fightlistServiceEx" parent="fightlistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FightlistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="fightsetServiceEx" parent="fightsetService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FightsetServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="fishdropServiceEx" parent="fishdropService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FishdropServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="friendServiceEx" parent="friendService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FriendServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="furnitureServiceEx" parent="furnitureService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FurnitureServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="furnitureshowdefaultinfoServiceEx" parent="furnitureshowdefaultinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.FurnitureshowdefaultinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="gamereslistServiceEx" parent="gamereslistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.GamereslistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="goodsServiceEx" parent="goodsService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.GoodsServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="leavewordServiceEx" parent="leavewordService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.LeavewordServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="logininfoServiceEx" parent="logininfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.LogininfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="makeblueprintlistServiceEx" parent="makeblueprintlistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MakeblueprintlistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapfurnitureshowServiceEx" parent="mapfurnitureshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapfurnitureshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapgoodsshowServiceEx" parent="mapgoodsshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapgoodsshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapinfoServiceEx" parent="mapinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapmonstershowServiceEx" parent="mapmonstershowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapmonstershowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapnpcshowServiceEx" parent="mapnpcshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapnpcshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapobjectServiceEx" parent="mapobjectService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapobjectServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapobjectshowServiceEx" parent="mapobjectshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapobjectshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="mapresshowServiceEx" parent="mapresshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MapresshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="maptentshowServiceEx" parent="maptentshowService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MaptentshowServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="monsterServiceEx" parent="monsterService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MonsterServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="npcServiceEx" parent="npcService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.NpcServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="pethasskillServiceEx" parent="pethasskillService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.PethasskillServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="privatechatServiceEx" parent="privatechatService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.PrivatechatServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="publicchatServiceEx" parent="publicchatService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.PublicchatServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="resServiceEx" parent="resService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ResServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="roleServiceEx" parent="roleService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RoleServiceExImple">
+		<property name="createroleDao" ref="createroleDao"/>
+	</bean>
+
+	 <bean id="rolecidinfoServiceEx" parent="rolecidinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolecidinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolehasbuildingServiceEx" parent="rolehasbuildingService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolehasbuildingServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolehasmoneyServiceEx" parent="rolehasmoneyService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolehasmoneyServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolehaspackServiceEx" parent="rolehaspackService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolehaspackServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolehaspetServiceEx" parent="rolehaspetService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolehaspetServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolehasskillServiceEx" parent="rolehasskillService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolehasskillServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolemakinggoodsServiceEx" parent="rolemakinggoodsService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolemakinggoodsServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolepackhasfurnitureServiceEx" parent="rolepackhasfurnitureService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolepackhasfurnitureServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolepackhasgoodsServiceEx" parent="rolepackhasgoodsService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolepackhasgoodsServiceExImple">
+		<property name="equipaddinfoDao" ref="equipaddinfoDao"/>
+	</bean>
+
+	 <bean id="roleplatformfurnituredataServiceEx" parent="roleplatformfurnituredataService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RoleplatformfurnituredataServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolerechargeinfoServiceEx" parent="rolerechargeinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolerechargeinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="rolesetServiceEx" parent="rolesetService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RolesetServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="roletaskinfoServiceEx" parent="roletaskinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RoletaskinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="roletentinfoServiceEx" parent="roletentinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.RoletentinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="serverconfigServiceEx" parent="serverconfigService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ServerconfigServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="serverfunctionServiceEx" parent="serverfunctionService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ServerfunctionServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="shopsellgoodsServiceEx" parent="shopsellgoodsService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ShopsellgoodsServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="skillServiceEx" parent="skillService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.SkillServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="speciareslistServiceEx" parent="speciareslistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.SpeciareslistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="taskServiceEx" parent="taskService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.TaskServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="taskconditionsaveServiceEx" parent="taskconditionsaveService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.TaskconditionsaveServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="taskfightlistServiceEx" parent="taskfightlistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.TaskfightlistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="teamServiceEx" parent="teamService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.TeamServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toporganizeforceServiceEx" parent="toporganizeforceService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToporganizeforceServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toporganizelevelServiceEx" parent="toporganizelevelService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToporganizelevelServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toprolecharmServiceEx" parent="toprolecharmService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToprolecharmServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toproleforceServiceEx" parent="toproleforceService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToproleforceServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toprolegoldServiceEx" parent="toprolegoldService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToprolegoldServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="toprolelevelServiceEx" parent="toprolelevelService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ToprolelevelServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+</beans>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        				http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+						http://www.springframework.org/schema/context
+        				http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        				http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	<!-- 其他数据库，如充值卡数据，等全局数据 -->
+	<!-- 配置一个数据源   
+	<bean id="dataSourceGlobal2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
+		<property name="url" value="jdbc:mysql://s1.yzhj.1ywan.com:3306/1ywanGame?autoReconnect=true&amp;autoReconnectForPools=true"/>
+		<property name="username" value="root" />
+		<property name="password" value="ycwlovecandymo"/>
+		
+		<property name="initialSize" value="10" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="5" />
+		<property name="maxWait" value="60000" />
+
+		<property name="validationQuery"> <value>SELECT 1</value>  </property>
+		<property name="testOnBorrow">    <value>true</value>      </property>
+	</bean>
+	-->
+	
+	<!-- XA方式 -->
+	<bean id="dataSourceGlobal" class="com.atomikos.jdbc.AtomikosDataSourceBean" destroy-method="close">
+	    <property name="uniqueResourceName" value="db_main2"/>
+	    <property name="xaDataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"/>
+	    <property name="xaProperties">
+	        <props>
+	            <prop key="url">jdbc:mysql://s1.yzhj.1ywan.com:3306/global1ywangame?autoReconnect=true&amp;autoReconnectForPools=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</prop>
+	            <prop key="user">root</prop>
+	            <prop key="password">ycwlovecandymo</prop>
+	        </props>
+	    </property>
+	    <property name="minPoolSize" value="10" />
+	    <property name="maxPoolSize" value="100" />
+	    <property name="borrowConnectionTimeout" value="30" />
+	    <property name="testQuery" value="select 1" />
+	    <property name="maintenanceInterval" value="60" />
+	</bean>
+	
+	<!-- 配置一个NamedParameterJdbcTemplate模板 使用构造函数注入器 -->  
+	<bean id="namedParameterJdbcTemplateGlobal" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">  
+		<constructor-arg ref="dataSourceGlobal"/>  
+	</bean>
+	
+	<!-- 基于数据源的事务管理器 -->  
+	<bean id="txManagerGlobal" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceGlobal"/>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManagerGlobal"/>
+
+</beans>

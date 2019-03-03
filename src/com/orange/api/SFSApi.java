@@ -966,6 +966,23 @@ public class SFSApi {
 //	    sendGenericMessage(GenericMessageType.OBJECT_MSG, sender, targetRoom.getId(), null, message, recipientList);
 //	  }
 	  
+	  public void sendExtensionResponse(String cmdName, List<Message> messages, List<User> recipients, Room room, boolean useUDP)
+	  {
+	    List<ChannelHandlerContext> sessions = new LinkedList();
+	    for (User user : recipients) {
+	      sessions.add(user.getSession());
+	    }
+	    this.responseAPI.sendExtResponse(cmdName, messages, sessions, room, useUDP);
+	  }
+	  
+	  public void sendExtensionResponse(String cmdName, List<Message> messages, User recipient, Room room, boolean useUDP)
+	  {
+	    List<ChannelHandlerContext> msgRecipients = new LinkedList();
+	    msgRecipients.add(recipient.getSession());
+	    
+	    this.responseAPI.sendExtResponse(cmdName, messages, msgRecipients, room, useUDP);
+	  }
+	  
 	  public void sendExtensionResponse(String cmdName, Message params, List<User> recipients, Room room, boolean useUDP)
 	  {
 	    List<ChannelHandlerContext> sessions = new LinkedList();

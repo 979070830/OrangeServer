@@ -54,7 +54,7 @@ public class PackageUtil {
 //    }
     
     public static List<String> getClassName(String packageName, boolean childPackage) throws IOException {
-        List<String> fileNames = new ArrayList<>();
+        List<String> fileNames = new ArrayList();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         String packagePath = packageName.replace(".", "/");
         Enumeration<URL> urls = loader.getResources(packagePath);
@@ -83,7 +83,7 @@ public class PackageUtil {
      * @throws UnsupportedEncodingException
      */
     private static List<String> getClassNameByFile(String filePath, boolean childPackage, String packagePath) throws UnsupportedEncodingException {
-        List<String> myClassName = new ArrayList<>();
+        List<String> myClassName = new ArrayList();
         filePath = URLDecoder.decode(filePath);//UrlDecode.getURLDecode(filePath);
         
         File file = new File(filePath);

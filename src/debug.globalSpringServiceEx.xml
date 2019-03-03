@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- 可扩展配置,第一次由GenDaoServiceTool类生成,修改不会被覆盖 -->
+	<!-- 扩展业务配置请在这里配置 -->
+
+	 <bean id="channelrechargelogServiceEx" parent="channelrechargelogService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ChannelrechargelogServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="channeluserbindServiceEx" parent="channeluserbindService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ChanneluserbindServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="diamondcardServiceEx" parent="diamondcardService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.DiamondcardServiceExImple">
+		<property name="markdiamondcardlogDao" ref="markdiamondcardlogDao"/>
+		<property name="userhasdiamondDao" ref="userhasdiamondDao"/>
+		<property name="userrechargeconsumelogDao" ref="userrechargeconsumelogDao"/>
+	</bean>
+	 <bean id="markdiamondcardlogServiceEx" parent="markdiamondcardlogService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.MarkdiamondcardlogServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="serverlistServiceEx" parent="serverlistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ServerlistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="serverversionServiceEx" parent="serverversionService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.ServerversionServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="transactionlogServiceEx" parent="transactionlogService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.TransactionlogServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="userhasdiamondServiceEx" parent="userhasdiamondService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.UserhasdiamondServiceExImple">
+		<property name="diamondcardDao" ref="diamondcardDao"/>
+		<property name="rolehasmoneyDao" ref="rolehasmoneyDao"/>
+		<property name="userrechargeconsumelogDao" ref="userrechargeconsumelogDao"/>
+	</bean>
+	
+	<bean id="userhasserverlistServiceEx" parent="userhasserverlistService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.UserhasserverlistServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+	
+	 <bean id="userinfoServiceEx" parent="userinfoService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.UserinfoServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+	 <bean id="userrechargeconsumelogServiceEx" parent="userrechargeconsumelogService" class="sfs2x.extensions.games.xinqiwan.serviceex.imple.UserrechargeconsumelogServiceExImple">
+		<!--
+		<property name="tDao" ref="tDao"/>
+		-->
+	</bean>
+
+</beans>

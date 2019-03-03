@@ -1,5 +1,7 @@
 package com.orange.entities.extensions;
 
+import io.netty.channel.ChannelHandlerContext;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +31,7 @@ public class BaseExtension implements ISFSEventListener{
 	  private Room parentRoom = null;
 	  private Zone parentZone = null;
 	  private volatile boolean active;
-	  private final OrangeServerEngine sfs;
+	  protected final OrangeServerEngine sfs;
 	  private Properties configProperties;
 	  private ExtensionReloadMode reloadMode;
 	  private String currentPath;
@@ -240,6 +242,32 @@ public class BaseExtension implements ISFSEventListener{
 	    this.reloadMode = mode;
 	  }
 	  
+	  public void send(String cmdName, List<Message> messages, List<User> recipients)
+	  {
+		  checkLagSimulation();
+		  Room room = this.level == ExtensionLevel.ROOM ? this.parentRoom : null;
+		  this.sfsApi.sendExtensionResponse(cmdName, messages, recipients, room, false);
+	  }
+	  
+	  public void send(String cmdName, List<Message> messages, User recipient)
+	  {
+		  checkLagSimulation();
+		  Room room = this.level == ExtensionLevel.ROOM ? this.parentRoom : null;
+		  this.sfsApi.sendExtensionResponse(cmdName, messages, recipient, room, false);
+	  }
+	  
+	  public void send(String cmdName, com.google.protobuf.GeneratedMessageV3.Builder<?> builder, List<User> recipients)
+	  {
+		  Message message = builder != null ? builder.build() : null;
+		  send(cmdName,message,recipients);
+	  }
+	  
+	  public void send(String cmdName, com.google.protobuf.GeneratedMessageV3.Builder<?> builder, User recipient)
+	  {
+		  Message message = builder != null ? builder.build() : null;
+		  send(cmdName,message,recipient);
+	  }
+	  
 	  public void send(String cmdName, Message params, List<User> recipients)
 	  {
 	    send(cmdName, params, recipients, false);
@@ -270,6 +298,11 @@ public class BaseExtension implements ISFSEventListener{
 	    this.sfsApi.sendExtensionResponse(cmdName, params, recipient, room, useUDP);
 	  }
 	  
+	  public void sendModule()
+	  {
+		  
+	  }
+	  
 //	  public String toString()
 //	  {
 //	    return String.format("{ Ext: %s, Type: %s, Lev: %s, %s, %s }", new Object[] { this.name, this.type, this.level, this.parentZone, this.parentRoom == null ? "{}" : this.parentRoom });
@@ -280,25 +313,25 @@ public class BaseExtension implements ISFSEventListener{
 	    return this.logger;
 	  }
 	  
-//	  public void trace(Object... args)
-//	  {
-//	    trace(ExtensionLogLevel.INFO, args);
-//	  }
-//	  
-//	  public void trace(ExtensionLogLevel level, Object... args)
-//	  {
-//	    String traceMsg = getTraceMessage(args);
-//	    if (level == ExtensionLogLevel.DEBUG) {
-//	      this.logger.debug(traceMsg);
-//	    } else if (level == ExtensionLogLevel.INFO) {
-//	      this.logger.info(traceMsg);
-//	    } else if (level == ExtensionLogLevel.WARN) {
-//	      this.logger.warn(traceMsg);
-//	    } else if (level == ExtensionLogLevel.ERROR) {
-//	      this.logger.error(traceMsg);
-//	    }
-//	    this.sfs.getTraceMonitor().handleTraceMessage(new TraceMessage(this.parentZone, this.parentRoom, level, traceMsg));
-//	  }
+	  public void trace(Object... args)
+	  {
+	    trace(ExtensionLogLevel.INFO, args);
+	  }
+	  
+	  public void trace(ExtensionLogLevel level, Object... args)
+	  {
+	    String traceMsg = getTraceMessage(args);
+	    if (level == ExtensionLogLevel.DEBUG) {
+	      this.logger.debug(traceMsg);
+	    } else if (level == ExtensionLogLevel.INFO) {
+	      this.logger.info(traceMsg);
+	    } else if (level == ExtensionLogLevel.WARN) {
+	      this.logger.warn(traceMsg);
+	    } else if (level == ExtensionLogLevel.ERROR) {
+	      this.logger.error(traceMsg);
+	    }
+	    //this.sfs.getTraceMonitor().handleTraceMessage(new TraceMessage(this.parentZone, this.parentRoom, level, traceMsg));
+	  }
 	  
 	  private String getTraceMessage(Object[] args)
 	  {
